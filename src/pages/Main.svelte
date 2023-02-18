@@ -1,4 +1,5 @@
 <script>
+    import {  Heading, P } from 'flowbite-svelte'
     export let index = 0;
     let value = "";
 
@@ -9,6 +10,9 @@
 
 <main class="main">
     <div class='board'>
+        <div  class="text-center">
+            <Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Chat Bot</Heading>
+        </div>
         <input
         size = "100"
         bind:value={value}
