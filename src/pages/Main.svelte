@@ -13,10 +13,24 @@
 </main>
 
 <style>
-    .main {
-		width: 50vw;
-		height: 50vh;
+	.main {
+		width: 70vh;
+		height: 70vh;
 		background: red;
+		margin-right: 70vh;
 	}
+
+    .board {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 1em;
+		max-width: 36em;
+		margin: 0 auto;
+	}
+
+    .board > input {
+        font-size: 2em;
+        grid-column: 1/3;
+    }
 </style>
   
