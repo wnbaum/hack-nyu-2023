@@ -3,7 +3,7 @@
 </script>
 
 <main>
-	<Main />
+  <Main />
 </main>
 
 <style>
