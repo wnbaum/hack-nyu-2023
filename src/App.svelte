@@ -3,7 +3,12 @@
 </script>
 
 <main>
-  <Main />
+  <div>
+  
+    <Main />
+  
+  </div>
+  
 </main>
 
 <style>
