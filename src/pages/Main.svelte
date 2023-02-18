@@ -1,13 +1,23 @@
 <script>
+    export let index = 0;
+    let value = "";
+
+    function changeIndex(){
+       index = (index + 1)%3;
+    }
 </script>
 
 <main class="main">
     <div class='board'>
         <input
         size = "100"
-        height = "100"
+        bind:value={value}
         placeholder="Type in a topic to explore"
-        on:keydown={e => e.key === 'Enter'}
+        on:keydown={e => {
+            if (e.key === 'Enter') {
+                changeIndex();
+            }
+        }}
         >
     </div>
 </main>
@@ -17,7 +27,7 @@
 		width: 70vh;
 		height: 70vh;
 		background: red;
-		margin-right: 70vh;
+		margin-right: 50vw;
 	}
 
     .board {

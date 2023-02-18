@@ -1,11 +1,11 @@
 <script>
   	import Main from './pages/Main.svelte'
-	var index = 0;
+	let index = 0;
 </script>
 
 <main>
 	<div id="pageWrapper" style="--index:{index}">
-		<Main />
+		<Main bind:index={index}/>
 		<Main />
 		<Main />
 	</div>
@@ -15,7 +15,7 @@
 	#pageWrapper {
 		position: absolute;
 		transform: translateY(-50%);
-		left: calc(50% - 35vh - 140vh*var(--index));
+		left: calc(50% - 35vh - (70vh + 50vw)*var(--index));
 		top: 50%;
 		display: flex;
 		transition: left 1s ease-in-out;
