@@ -1,13 +1,14 @@
 <script>
   	import Main from './pages/Main.svelte'
+	import Learn from './pages/Learn.svelte'
 	let index = 0;
 </script>
 
 <main>
 	<div id="pageWrapper" style="--index:{index}">
 		<Main bind:index={index}/>
-		<Main />
-		<Main />
+		<Learn bind:index={index}/>
+		<Main bind:index={index}/>
 	</div>
 </main>
 
