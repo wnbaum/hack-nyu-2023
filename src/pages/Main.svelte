@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<main>
+<main class="main">
     <div class='board'>
         <input
         placeholder="Enter text"
@@ -11,9 +11,9 @@
 </main>
 
 <style>
-    .board > input {
-        font-size: 1.4em;
-        grid-column: 1/3;
-    }
+    .main {
+		width: 50vw;
+		height: 50vh;
+	}
 </style>
   
