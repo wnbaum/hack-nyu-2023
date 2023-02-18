@@ -12,4 +12,6 @@ app.listen(port, () => {
     console.log("Listening to requests on port " + port);
 });
 
-chat.getTopicSummary("basketball")
+chat.init(process.env.OPENAI_API_KEY, () => {
+	chat.getTopicSummary("basketball")
+})

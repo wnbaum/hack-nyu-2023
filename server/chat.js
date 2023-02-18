@@ -1,8 +1,15 @@
-import { ChatGPTAPI } from 'chatgpt'
+var api
 
-const api = new ChatGPTAPI({
-    apiKey: process.env.OPENAI_API_KEY
-})
+function init(apiKey, callback) {
+	import("chatgpt")
+	.then((c) => {	
+		api = new c.ChatGPTAPI({
+			apiKey: apiKey
+		})
+
+		callback()
+	});
+}
 
 async function getTopicSummary(topic) {
 	const res = await api.sendMessage("Give me a basic summary of " + topic)
@@ -10,6 +17,6 @@ async function getTopicSummary(topic) {
 }
 
 module.exports = {
+	init,
 	getTopicSummary,
-	setAPI,
 }
