@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "chatgpt": "^4.4.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "twilio": "^4.7.2"
   }
