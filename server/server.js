@@ -1,9 +1,10 @@
 const express = require("express");
-require("dotenv").config()
 const chat = require("./chat")
 
 const app = express();
 const port = process.env.PORT || "3000";
+
+require("dotenv").config()
 
 app.use(express.json());
 app.use(express.static('./dist'))
@@ -41,10 +42,10 @@ app.post('/topicQuestionMulti', async (req, res) => {
 
 chat.init(process.env.OPENAI_API_KEY)
 
-const accountSid = "ACe10fc0a6296c3c20fed92626fc77684b";
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-const { MessagingResponse } = require('twilio')(accountSid, authToken).twiml;
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 app.post('/sms', (req, res) => {
 	const twiml = new MessagingResponse();
