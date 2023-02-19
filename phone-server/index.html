@@ -1,0 +1,138 @@
+<html>
+	<body>
+		<div class="phone">
+			<div id="messages">
+				<div id="texts">
+
+				</div>
+				<input id="texter" placeholder="Text Message">
+                    
+                </input>
+			</div>
+            
+                
+		</div>
+	</body>
+	<script>
+		document.getElementById("texter").addEventListener("keypress", async function(e) {
+			if (e.key === "Enter") {
+
+				let headersList = {
+					"Accept": "*/*",
+					"Content-Type": "application/json",
+				}
+
+				let bodyContent = JSON.stringify({
+					"Body": e.currentTarget.value
+				});
+
+				document.getElementById("texts").innerHTML += `
+				<p class="self">` + e.currentTarget.value + `</p>
+				`
+				e.currentTarget.value = ""
+
+				let response = await fetch("http://localhost:3000/sms", { 
+					method: "POST",
+					mode: 'cors',
+					body: bodyContent,
+					headers: headersList
+				});
+
+				let data = await response.text();
+
+				let idx = data.indexOf("text=") + 6
+				let endidx = data.substring(idx).indexOf(`"`)
+
+				let text = data.substring(idx, idx+endidx)
+
+				console.log(text)
+
+				document.getElementById("texts").innerHTML += `
+				<p class="other">` + text + `</p>
+				`
+				
+			}
+		});
+	</script>
+	<style>
+		/* width */
+		::-webkit-scrollbar {
+			width: 4px;
+		}
+
+		/* Track */
+		::-webkit-scrollbar-track {
+			background: none;
+		}
+
+		/* Handle */
+		::-webkit-scrollbar-thumb {
+			background: #ffffff; 
+			border-radius: 2px;
+		}
+
+		.phone {
+			position: absolute;
+			width: 40vh;
+			height: 80vh;
+			background: #111;
+			border: 1.5vh solid #ccc;
+			border-radius: 32px;
+			transform: translate(-50%, -50%);
+			left: 50%;
+			top: 50%;
+		}
+
+		.phone::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, -1.5vh);
+			border-radius: 1.5vh;
+			background: #ccc;
+			border: none;
+			width: 16vh;
+			height: 3vh;
+		}
+
+		#messages {
+			height: 80vh;
+		}
+
+        input {
+            right: 2vh;
+            position: absolute;
+            bottom: 0;
+			margin-bottom: 10vh;
+        }
+
+		#texts {
+			margin-top: 4vh;
+			height: 60vh;
+			overflow-y: auto;
+		}
+
+		.other {
+			color: white;
+			background: #aaa;
+			font-family: Arial;
+			width: 80%;
+			padding: 1vh;
+			margin-left: 1vh;
+			margin-right: 1vh;
+			border-radius: 1.5vh;
+		}
+
+		.self {
+			color: white;
+			background: #03A947;
+			font-family: Arial;
+			margin-left: auto;
+			margin-right: 1vh;
+			max-width: 80%;
+			padding: 1vh;
+			border-radius: 1.5vh;
+		}
+	</style>
+</html>
