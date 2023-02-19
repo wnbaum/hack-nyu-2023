@@ -23,6 +23,7 @@
 		questionMulti = data.questionMulti
 		answerChoices = data.answerChoices
 
+		hideAnswer();
 		initialize(fact, keywords)
 		initializeMulti(questionMulti, answerChoices)
 	}
@@ -33,9 +34,10 @@
 		index = _index
 	}
 
+	let hideAnswer;
 	let initialize;
 	let initializeMulti;
-
+	
 	export let setTopIndex;
 </script>
 
@@ -57,7 +59,7 @@
 		<div id="sliderWrapper">
 			<div id="gamesWrapper" style="--index:{index}">
 				<Summary summary={summary}/>
-				<Quiz topic={topic} question={question} answer={answer}/>
+				<Quiz bind:hideAnswer={hideAnswer} topic={topic} question={question} answer={answer}/>
 				<FillInTheBlank bind:intialize={initialize} topic={topic}/>
 				<MultipleChoice  bind:initialize={initializeMulti} topic={topic}/>
 			</div>

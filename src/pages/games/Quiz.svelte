@@ -33,6 +33,11 @@
 		
 		
 	}
+
+    export const hideAnswer = () => {
+        visible = false;
+		console.log("test")
+    }
 </script>
 
 <main class="main">
