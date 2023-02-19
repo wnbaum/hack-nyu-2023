@@ -17,6 +17,7 @@
 			data["topic"] = topic
 			setLearnData(data)
 			index = 1
+			hideThrobber()
 		});
 		
 		// index = 1
@@ -25,6 +26,7 @@
 	}
 
 	let setLearnData;
+	let hideThrobber;
 
 	let setTopIndex = (_index) => {
 		index = _index
@@ -33,7 +35,7 @@
 
 <main>
 	<div id="pageWrapper" style="--index:{index}">
-		<Main callback={callback}/>
+		<Main callback={callback} bind:hideThrobber={hideThrobber}/>
 		<Learn bind:setLearnData={setLearnData} setTopIndex={setTopIndex}/>
 	</div>
 </main>

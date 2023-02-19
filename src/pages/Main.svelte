@@ -6,6 +6,12 @@
     function enteredTopic() {
 		callback(value)
     }
+
+	let entered = false;
+
+	export const hideThrobber = () => {
+		entered = false
+	}
 </script>
 
 <main class="main">
@@ -17,12 +23,33 @@
 		if (e.key === 'Enter') {
 			enteredTopic();
 			value = ""
+			entered = true;
 		}
 	}}
 	>
+	{#if entered}
+		<div class="loader"></div>
+	{/if}
 </main>
 
 <style>
+	
+	.loader {
+		border: 2vh solid var(--secondary); 
+		border-top: 2vh solid var(--text);
+		border-radius: 50%;
+		width: 10vh;
+		height: 10vh;
+		animation: spin 2s linear infinite;
+		margin: auto;
+		margin-top: 10vh;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+
     .title {
         text-align: center;
 		width: 100%;
