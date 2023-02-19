@@ -9,7 +9,7 @@
 </script>
 
 <main class="main">
-	<h1 class="title">Chat Bot</h1>
+	<h1 class="title">Witee</h1>
 	<input
 	bind:value={value}
 	placeholder="Type in a topic to explore"
