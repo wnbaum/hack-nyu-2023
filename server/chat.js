@@ -32,6 +32,11 @@ async function getTopicFact(topic) {
 	return [res.text, res2.text]
 }
 
+async function getTopicFunFact(topic) {
+	const res = await api.sendMessage("Give me a fun fact about " + topic + ".")
+	return res
+}
+
 async function getTopicQuestionMulti(topic) {
 	const res = await api.sendMessage("Remove pretext and context. Give me a simple quiz question about " + topic + ".")
 	const res2 = await api.sendMessage(`
@@ -53,5 +58,6 @@ module.exports = {
 	getTopicSummary,
 	getTopicQuestion,
 	getTopicFact,
-	getTopicQuestionMulti
+	getTopicQuestionMulti,
+	getTopicFunFact
 }
