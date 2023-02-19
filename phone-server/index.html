@@ -8,6 +8,7 @@
 				<input id="texter" placeholder="Text Message">
                     
                 </input>
+				<div class="line"></div>
 			</div>
             
                 
@@ -31,7 +32,7 @@
 				`
 				e.currentTarget.value = ""
 
-				let response = await fetch("http://localhost:3000/sms", { 
+				let response = await fetch("http://witee.tech/sms", { 
 					method: "POST",
 					mode: 'cors',
 					body: bodyContent,
@@ -99,11 +100,30 @@
 		}
 
         input {
-            right: 2vh;
+            left: 0;
             position: absolute;
             bottom: 0;
-			margin-bottom: 10vh;
+			border: none;
+			outline: none;
+			width: 40vh;
+			padding-left: 16vh;
+			padding-bottom: 10vh;
+			border-bottom-left-radius: 3vh;
+			border-bottom-right-radius: 3vh;
+			background: #222;
+			padding-top: 2vh;
+			color: #fff;
+			font-size: 2vh;
         }
+
+		.line {
+			position: absolute;
+			width: 24vh;
+			right: 1vh;
+			bottom: 9vh;
+			height: 2px;
+			background: #444;
+		}
 
 		#texts {
 			margin-top: 4vh;
