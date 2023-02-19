@@ -1,53 +1,50 @@
 <script>
-    export let index = 0;
-    let value = "";
+	export let callback;
 
-    function changeIndex(){
-       index = (index + 1)%3;
+	let value = "";
+
+    function enteredTopic() {
+		callback(value)
     }
 </script>
 
 <main class="main">
-    <div class='board'>
-        <h1  class="title">Chat Bot</h1>
-        <input
-        size = "100"
-        bind:value={value}
-        placeholder="Type in a topic to explore"
-        on:keydown={e => {
-            if (e.key === 'Enter') {
-                changeIndex();
-            }
-        }}
-        >
-    </div>
+	<h1 class="title">Chat Bot</h1>
+	<input
+	bind:value={value}
+	placeholder="Type in a topic to explore"
+	on:keydown={e => {
+		if (e.key === 'Enter') {
+			enteredTopic();
+		}
+	}}
+	>
 </main>
 
 <style>
     .title {
-        font-size: 2em;
+        text-align: center;
+		width: 100%;
+        font-size: 7vh;
         font-weight: bold;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: "Roboto";
     }
 
 	.main {
 		width: 70vh;
 		height: 70vh;
-		background: red;
 		margin-right: 50vw;
 	}
 
-    .board {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-gap: 1em;
-		max-width: 36em;
-		margin: 0 auto;
+    input {
+		width: 100%;
+		font-size: 4vh;
+		border: none;
+		outline: none;
+		background: transparent;
+		color: var(--text);
+		border-bottom: 4px solid var(--text);
+		padding-bottom: 1vh;
 	}
-
-    .board > input {
-        font-size: 2em;
-        grid-column: 1/3;
-    }
 </style>
   

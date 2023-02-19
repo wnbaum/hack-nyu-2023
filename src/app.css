@@ -1,17 +1,20 @@
 :root {
-  font-family: "Roboto";
-  line-height: 1.5;
-  font-weight: 400;
+	line-height: 1.5;
+	font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	--primary: #27272a;
+	--secondary: #37373a;
+	--tertiary: #555;
+	--text: #fafafa;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+	color: var(--text);
+	background-color: var(--primary);
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 }
 
 body {
