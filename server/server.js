@@ -41,7 +41,10 @@ app.post('/topicQuestionMulti', async (req, res) => {
 
 chat.init(process.env.OPENAI_API_KEY)
 
-const { MessagingResponse } = require('twilio').twiml;
+const accountSid = "ACe10fc0a6296c3c20fed92626fc77684b";
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+const { MessagingResponse } = require('twilio')(accountSid, authToken).twiml;
 
 app.post('/sms', (req, res) => {
 	const twiml = new MessagingResponse();
@@ -51,9 +54,7 @@ app.post('/sms', (req, res) => {
 	res.type('text/xml').send(twiml.toString());
 });
 
-// const accountSid = "ACe10fc0a6296c3c20fed92626fc77684b";
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = require("twilio")(accountSid, authToken);
+
 
 // client.messages
 // 	.create({ body: "Hello from Twilio", from: "+18777977411", to: "+16094238558" })
