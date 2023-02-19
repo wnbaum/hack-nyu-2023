@@ -16,6 +16,7 @@
 	on:keydown={e => {
 		if (e.key === 'Enter') {
 			enteredTopic();
+			value = ""
 		}
 	}}
 	>

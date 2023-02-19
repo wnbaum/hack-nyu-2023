@@ -32,9 +32,26 @@ async function getTopicFact(topic) {
 	return [res.text, res2.text]
 }
 
+async function getTopicQuestionMulti(topic) {
+	const res = await api.sendMessage("Remove pretext and context. Give me a simple quiz question about " + topic + ".")
+	const res2 = await api.sendMessage(`
+	This is an example of multiple choice answers:\n
+	A) red\n
+	B) blue\n
+	C) green\n
+	D) purple\n
+	Now, write multiple choice answers for the previous question. Then, write the letter of the correct answer on a new line.
+	`, {
+		conversationId: res.conversationId,
+		parentMessageId: res.id
+	})
+	return [res.text, res2.text]
+}
+
 module.exports = {
 	init,
 	getTopicSummary,
 	getTopicQuestion,
-	getTopicFact
+	getTopicFact,
+	getTopicQuestionMulti
 }

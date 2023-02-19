@@ -19,17 +19,22 @@
 			index = 1
 		});
 		
-		// setLearnData({"topic": "Cats", "summary": "Catssssssssssssss wooo.", "question": "Why are cats so cute?", "answer": "because they are."});
 		// index = 1
+		// setLearnData({"topic": "Cats", "summary": "Catssssssssssssss wooo.", "question": "Why are cats so cute?", "answer": "because they are.", "fact": "fact", "keywords": "fact", "questionMulti": "question", "answerChoices": "aaaaa"});
+		// // index = 1
 	}
 
 	let setLearnData;
+
+	let setTopIndex = (_index) => {
+		index = _index
+	}
 </script>
 
 <main>
 	<div id="pageWrapper" style="--index:{index}">
 		<Main callback={callback}/>
-		<Learn bind:setLearnData={setLearnData}/>
+		<Learn bind:setLearnData={setLearnData} setTopIndex={setTopIndex}/>
 	</div>
 </main>
 

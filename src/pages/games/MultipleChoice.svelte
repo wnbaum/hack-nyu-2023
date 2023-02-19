@@ -1,18 +1,23 @@
 <script>
     import { fade } from 'svelte/transition';
-
+	
 	export let topic;
-    export let questionMulti;
-    export let answerChoices;
+	
 	
     let visible = false;
 	let loading = false;
 
+	let displayQuestion = "";
+	let displayChoices = [];
+
+	let correct;
+	
     function showAnswer() {
         visible = true;
     }
 
 	function getNewQuestion() {
+
         loading = true
 		visible = false
 
@@ -25,41 +30,86 @@
 			}
 		}).then(res => res.json())
 		.then(function(data) {
-			questionMulti = data.questionMulti
-			answerChoices = data.answerChoices
+			process(data)
             loading = false
 		});
-		
-		
+	}
+
+	export const initialize = (_questionMulti, _answerChoices) => {
+		let data = {"questionMulti": _questionMulti, "answerChoices": _answerChoices}
+
+		// clean
+		for (let i = 0; i < 4; i++) {
+			let choice = document.getElementById("choice" + i);
+			if (choice != undefined && choice != null) {
+				choice.setAttribute("style", "")
+			}
+		}
+		process(data)
+	}
+
+	const onlyWhiteSpace = string => (/^\\s*$/.test(string)) 
+	
+	function process(data) {
+		let answerChoices = data.answerChoices
+
+		displayQuestion = data.questionMulti
+		displayChoices = []
+
+		let count = 0
+		let found = false
+		let arr = answerChoices.split(/\n/g)
+		for (let i in arr) {
+			if (!onlyWhiteSpace(arr[i]) && arr[i] != "" && count < 4) {
+				displayChoices.push({"text": arr[i].replace(/\*/g, ""), "index": i});
+				count += 1
+			}
+		}
+		let lastLine = arr[arr.length-1];
+		correct = 0;
+		for (let i = lastLine.length-1; i >= 0; i--) {
+			let c = lastLine.charAt(i);
+			if (c === 'A') {
+				correct = 0;
+				break;
+			} else if (c === 'B') {
+				correct = 1;
+				break;
+			} else if (c === 'C') {
+				correct = 2;
+				break;
+			} else if (c === 'D') {
+				correct = 3;
+				break;
+			}
+		}
+	}
+
+	function selectAnswer(choiceIndex) {
+		document.getElementById("choice" + choiceIndex).setAttribute("style", "background: #dc2626")
+
+		document.getElementById("choice" + correct).setAttribute("style", "background: #16a34a")
 	}
 </script>
 
 <main class="main">
 	{#if !loading}
-		<!-- <p class="text" in:fade="{{ duration: 2000 }}" out:fade="{{ duration: 500 }}">{question}</p> -->
+		<p>{displayQuestion}</p>
+		{#each displayChoices as choice}
+			<button id={"choice" + choice.index} class="choice" on:click={() => {selectAnswer(choice.index)}}>{choice.text}</button>
+		{/each}
 	{/if}
 	{#if !visible}
 		{#if !loading}
-			<input
-			in:fade="{{ delay: 1000, duration: 1000 }}" out:fade="{{ delay: 0, duration: 500 }}"
-			id="input"
-			placeholder="Enter your answer"
-			on:keydown={e => {
-				if (e.key === 'Enter') {
-					showAnswer();
-				}
-			}}
-			>
+			<button class="next" on:click={() => {
+				getNewQuestion();
+			}} in:fade="{{ delay: 1000, duration: 1000 }}" out:fade="{{ delay: 0, duration: 500 }}">
+				>
+			</button>
 		{/if}
 	{/if}
     {#if visible}
-		<p id="answer" class="text" in:fade="{{ duration: 2000 }}" out:fade="{{ duration: 500 }}">
-			<!-- Correct Answer: {answer} -->
-        </p>
-		<p id="youranswer" class="text" in:fade="{{ duration: 2000 }}" out:fade="{{ duration: 500 }}">
-			<!-- Your Answer: {yourAnswer} -->
-		</p>
-		<button on:click={() => {
+		<button class="next" on:click={() => {
 				getNewQuestion();
 			}} in:fade="{{ delay: 1000, duration: 1000 }}" out:fade="{{ delay: 0, duration: 500 }}">
 			>
@@ -76,23 +126,7 @@
 		overflow-x: hidden;
 		position: relative;
 	}
-
-    input {
-        width: 100%;
-		font-size: 2vh;
-		border: none;
-		outline: none;
-		background: transparent;
-		color: var(--text);
-		border-bottom: 4px solid var(--text);
-		background: var(--tertiary);
-		padding: 1vh;
-        margin-top: 2vh;
-		position: absolute;
-		height: calc(4vh - 4px);
-		bottom: 1vh;
-    }
-
+	
 	p {
 		margin: 0;
 	}
@@ -105,7 +139,7 @@
 		white-space: pre-line;
     }
 
-	button {
+	.next {
 		position: absolute;
 		right: 1vh;
 		bottom: 1vh;
@@ -124,6 +158,27 @@
 	#answer {
 		margin-top: 6vh;
 		color: #16a34a;
+	}
+
+	.choice {
+		display: block;
+		border: none;
+		cursor: pointer;
+		outline: none;
+		font-size: 2vh;
+		background: var(--secondary);
+		margin-left: 2vh;
+		margin-top: 2vh;
+		border: 2px solid var(--text);
+		color: var(--text);
+		border-radius: 2px;
+		padding: 1vh;
+		width: calc(100% - 4vh);
+		text-align: left;
+		transition: background 0.2s ease-in-out;
+	}
+	.choice:hover {
+		background: var(--tertiary);
 	}
 </style>
   

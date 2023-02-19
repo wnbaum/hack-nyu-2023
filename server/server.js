@@ -16,8 +16,9 @@ app.post('/topic', async (req, res) => {
     let summary = await chat.getTopicSummary(req.body.topic);
     let question = await chat.getTopicQuestion(req.body.topic);
 	let fact = await chat.getTopicFact(req.body.topic);
+	let result = await chat.getTopicQuestionMulti(req.body.topic);
 
-	res.json({"summary": summary, "question": question[0], "answer": question[1], "fact": fact[0], "keywords": fact[1]}); // "questionMulti": questionMulti[0], "answerChoices": questionMulti[1]
+	res.json({"summary": summary, "question": question[0], "answer": question[1], "fact": fact[0], "keywords": fact[1], "questionMulti": result[0], "answerChoices": result[1]});
 });
 
 app.post('/topicQuestion', async (req, res) => {
@@ -33,9 +34,9 @@ app.post('/topicFact', async (req, res) => {
 });
 
 app.post('/topicQuestionMulti', async (req, res) => {
-    let fact = await chat.getTopicFact(req.body.topic);
+    let result = await chat.getTopicQuestionMulti(req.body.topic);
 
-	res.json({"questionMulti": questionMulti[0], "answerChoices": answerChoices[1]});
+	res.json({"questionMulti": result[0], "answerChoices": result[1]});
 });
 
 chat.init(process.env.OPENAI_API_KEY)

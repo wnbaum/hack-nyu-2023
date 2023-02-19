@@ -10,8 +10,8 @@
 	let answer;
 	let fact;
 	let keywords;
-	let answerChoices;
 	let questionMulti;
+	let answerChoices;
 
     export const setLearnData = (data) => {
 		topic = data.topic
@@ -24,6 +24,7 @@
 		answerChoices = data.answerChoices
 
 		initialize(fact, keywords)
+		initializeMulti(questionMulti, answerChoices)
 	}
 	
 	let index = 0;
@@ -33,11 +34,20 @@
 	}
 
 	let initialize;
+	let initializeMulti;
+
+	export let setTopIndex;
 </script>
 
 <main class="main">
 	<div class="stack">
 		<div class="navbar">
+			<button id="back" on:click={() => {
+					index = 0
+					setTopIndex(0)
+				}}>
+				{"<"}
+			</button>
 			<button id="nav0" on:click={() => chooseTab(0)}>Summary</button>
 			<button id="nav1" on:click={() => chooseTab(1)}>Quiz</button>
 			<button id="nav2" on:click={() => chooseTab(2)}>Blanks</button>
@@ -49,7 +59,7 @@
 				<Summary summary={summary}/>
 				<Quiz topic={topic} question={question} answer={answer}/>
 				<FillInTheBlank bind:intialize={initialize} topic={topic}/>
-				<MultipleChoice  topic={topic} questionMulti={questionMulti} answerChoices={answerChoices}/>
+				<MultipleChoice  bind:initialize={initializeMulti} topic={topic}/>
 			</div>
 		</div>
 	</div>
@@ -127,6 +137,17 @@
 	#sliderWrapper {
 		position: relative;
 		flex: 1;
+	}
+
+	#back {
+		padding: 0 1vh 0 1vh;
+		border: 2px solid var(--text);
+		border-radius: 1vh;
+		aspect-ratio: 1;
+	}
+
+	#back::after {
+		content: none;
 	}
 </style>
   

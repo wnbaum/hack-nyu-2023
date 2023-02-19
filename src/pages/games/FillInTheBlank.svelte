@@ -25,11 +25,12 @@
 		.then(function(data) {
 			process(data)
 			loading = false
-			console.log(data)
 		});
 	}
 
 	function process(data) {
+		visible = false
+
 		let fact = data.fact
 		let keywords = data.keywords.split(",").map(x => {
 			if (x.charAt(0) == " ") {
@@ -56,7 +57,6 @@
 		toReplace.sort((a,b) => {
 			return a.index - b.index 
 		})
-		console.log(toReplace)
 
 		let i = 0;
 		for (let j in toReplace) {
